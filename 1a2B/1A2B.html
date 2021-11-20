@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>1A2B</title>
+
+</head>
+<body >
+<center>
+	<div style="height:250px;width:500px; border:solid 1px;">
+    <h1 class="text-center">1A2B</h1>
+    <input id="input" type="text" style="width: 100px;" maxlength="4"> </input>
+    <button id="submit" onclick="check()">送出</button>
+	
+	<label id="text">結果</label>
+	<BR><BR>
+	<button  onclick="get()">查看解答</button>
+	<label id="A" style="color:red"></label>
+	</div>
+	</center>
+</body>
+<script>
+var num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+console.log("產一個0-10的numArray");
+console.log(num);
+var answer = [];
+for (var i=0; i<4; i++) {	
+    var idx = Math.floor(Math.random()*num.length);
+	console.log("亂數取Array位置"+idx);
+    answer.push(num[idx]);
+	console.log("將取出來的數"+num[idx]+"放到答案的Array");
+	console.log("answerArray:"+answer); 
+	num.splice(idx, 1);
+	console.log("移除numArray裡的第"+idx+"位置");
+	console.log(num)
+   
+	
+	
+}
+
+var times = 0;
+
+function get() {
+var A=answer.join('');
+document.getElementById("A").innerHTML="答案:"+A;
+};
+
+
+function check() {
+console.log("開始");
+    var a = 0;
+    var b = 0;
+	
+    var x = document.getElementById("input");
+	console.log(x);
+	var g =x.value;
+	console.log(g);
+	if(g.length!=4){
+	alert("請輸入4位數字")
+	return false;
+	}else if(isNaN(g)){
+	
+	alert("請輸入數字")
+	return false;
+	
+	}else{
+    console.log();
+    for (var i=0; i<4; i++) {
+        var idx = answer.indexOf(g[i]);
+        if (idx != -1) {
+            if (idx == i) {
+                a++;
+            } else {
+                b++;
+            }
+        }
+    }
+    if (a == 4) {
+		times+=1;
+        alert('獲勝！答題次數:'+times);
+		location.reload();		
+    }
+    times += 1;
+	console.log(a);
+	console.log(b);
+	console.log(times);
+	var text='已猜第'+times+'次  a :  ' + a + '  b :  ' + b;
+	document.getElementById("text").innerHTML=text;
+	
+   }
+};
+</script>
+</html>
